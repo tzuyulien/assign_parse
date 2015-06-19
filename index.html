@@ -19,9 +19,9 @@
       if (user){
 
         user.fetch().then(function(fetchedUser){
-          var fname = fetchedUser.getUsername();
+          var fname = fetchedUser.get("username");
           $('#name').text(fname);
-          var role = fetchedUser.get("role")
+          var role = fetchedUser.get("role");
           $('#role').text(role);
         });
       } 
