@@ -41,6 +41,8 @@
   
     $(document).on('click',"#logOut",function(){
       console.log("Logout clicked");
+      Parse.User.logOut();
+      window.location='logIn.html';
 
 
       /* 執行登出動作，並轉址到 logIn 頁面*/
