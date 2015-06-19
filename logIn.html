@@ -18,22 +18,31 @@
       var name = $('#username').val();
       var pass = $('#password').val();
 
-      Parse.User.logIn(name, pass, {
+      Parse.User.logIn( name, pass, {
       success: function(user) {
-        var current = Parse.User.current();//找出現在登入的使用者是誰
-        current.set("signUp",1);//在這個表單裡面建立一個新的欄位叫做signUp，用來記錄誰有簽到了
-        current.save(null,{
-          success: function(index){
-            console.log(user);
-            alert("登入成功");
-            window.location="index.html";
-          },//登入成功以後，導向個人入口首頁
+        console.log(Parse.User.current());
+        alert('success');
+        window.location = 'index.html';
 
-          error: function(index, error){
-            console.log(user);
-            alert("登入失敗");
-          }
-        });
+
+
+
+
+
+        // var current = Parse.User.current();//找出現在登入的使用者是誰
+        // current.set("signUp",1);//在這個表單裡面建立一個新的欄位叫做signUp，用來記錄誰有簽到了
+        // current.save(null,{
+          // success: function(index){
+        //     console.log(user);
+        //     alert("登入成功");
+        //     window.location="index.html";
+        //   },//登入成功以後，導向個人入口首頁
+
+        //   error: function(index, error){
+        //     console.log(user);
+        //     alert("登入失敗");
+        //   }
+        // });
 
         // Do stuff after successful login.
       },
