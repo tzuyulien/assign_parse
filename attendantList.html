@@ -37,9 +37,6 @@
               console.log('type', typeof role);
 
 
- 
-
-
              if (role == 'student'){
                 alert("你不是老師喔");
                 window.location="logIn.html";
@@ -50,26 +47,26 @@
 
 
 
-           var Course = Parse.Object.extend("Course") ;
-           var allCourseQuery = new Parse.Query(Course);
+           var studentList = Parse.Object.extend("studentList") ;
+           var allStudentQuery = new Parse.Query(studentList);
 
-           allCourseQuery.ascending("name");
+           allStudentQuery.ascending("name");
 
                 allCourseQuery.find({
-                  success: function(CourseArray) {
-                  console.log(CourseArray);
+                  success: function(studentListArray) {
+                  console.log(studentListArray);
 
                     for (var i = 0 ; i < CourseArray.length ; i++){
-                      course = CourseArray[i] ;
+                      student = studentListArray[i] ;
                       View.addRow(
-                        course.id,
-                        course.get('name'),
-                        course.get('time'),
-                        course.get('credit')
+                        student.id,
+                        student.get('name'),
+                        // student.get('time'),
+                        // student.get('credit')
 
                         );
                     }
-                  }
+                  } ,
                   error: function(error) {
                     console.log(error) ;
                     alert(error.message) ;
