@@ -24,12 +24,20 @@
       var role ;
 
 
+
+
+
+
+
+
       if (user){
             user.fetch().then(function(fetchedUser){   
               var role = fetchedUser.get("role");
               console.log('role',fetchedUser.get("role"));
               console.log('type', typeof role);
 
+
+ 
 
 
              if (role == 'student'){
@@ -42,14 +50,12 @@
 
 
 
-
-    
            var Course = Parse.Object.extend("Course") ;
            var allCourseQuery = new Parse.Query(Course)
 
                 allCourseQuery.find({
                   success: function(CourseArray) {
-                    console.log(CourseArray);
+                  console.log(CourseArray);
 
                     for (var i = 0 ; i < CourseArray.length ; i++){
                       course = CourseArray[i] ;
@@ -67,6 +73,8 @@
                     alert(error.message) ;
                   }
                 });
+    
+           
 
      // if (user == null){
      //      alert("你還沒登入喔");
