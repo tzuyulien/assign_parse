@@ -25,11 +25,6 @@
 
 
 
-
-
-
-
-
       if (user){
             user.fetch().then(function(fetchedUser){   
               var role = fetchedUser.get("role");
@@ -45,33 +40,72 @@
             });
       }
 
+ var Checklist = new Parse.User();        
+        var CheckedQuery = new Parse.Query(Parse.User);
+        CheckedQuery.equalTo('checkin',"checked");
+        CheckedQuery.equalTo('role',"student");
+        CheckedQuery.find({
+          success: function(ChecklistArray){
+            console.log(ChecklistArray);
+            for (var i = 0 ; i < ChecklistArray.length ; i+=1){
+            var check = ChecklistArray[i] ;
+            console.log('check',check);
+            var addTable = function(username,createdAt){
+                  var html = '<tr>\
+                              <td>'+ username +'</td>\
+                              </tr>' ;
+                  $(html).appendTo('#table');
+          };
+          addTable(    
+            check.get('username'),
+            check.get('createdAt')
+            );
+        }}
+          ,error : function(error){
+            console.log(error) ;
+            alert(error.message);
+          }
+        });
+      
 
 
-           var studentList = Parse.Object.extend("studentList") ;
-           var allStudentQuery = new Parse.Query(studentList);
 
-           allStudentQuery.ascending("name");
 
-                allCourseQuery.find({
-                  success: function(studentListArray) {
-                  console.log(studentListArray);
+           // var studentList = Parse.Object.extend("studentList") ;
+           // var allStudentQuery = new Parse.Query(studentList);
+           // allStudentQuery.ascending("name");
 
-                    for (var i = 0 ; i < CourseArray.length ; i++){
-                      student = studentListArray[i] ;
-                      View.addRow(
-                        student.id,
-                        student.get('name'),
-                        // student.get('time'),
-                        // student.get('credit')
+           //      allStudentQuery.find({
+           //        success: function(studentListArray) {
+           //        console.log(studentListArray);
 
-                        );
-                    }
-                  } ,
-                  error: function(error) {
-                    console.log(error) ;
-                    alert(error.message) ;
-                  }
-                });
+           //          for (var i = 0 ; i < studentListArray.length ; i++){
+           //            student = studentListArray[i] ;
+           //            View.addRow(
+           //              student.id,
+           //              student.get('name')
+           //              // student.get('time'),
+           //              // student.get('credit')
+           //              );
+
+           //          console.log("studentListArray");
+
+           //          }
+           //        } ,
+
+
+           //        error: function(error) {
+           //          console.log(error) ;
+           //          alert(error.message) ;
+           //        }
+           //      });
+
+           //              console.log("studentListArray");
+
+
+
+
+
     
            
 
@@ -102,6 +136,7 @@
         // 提示 2 : 可使用 jqeury 中的 append 方法將資料顯示在<table id="table">中
 
       /* 結束*/
+      // query.notEqualTo("student","logIn");  
 
 
 
