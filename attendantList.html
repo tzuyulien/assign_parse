@@ -21,51 +21,72 @@
       console.log('document ready');
 
       var user = Parse.User.current();
-      var role ;
+      var role;
 
 
 
       if (user){
-            user.fetch().then(function(fetchedUser){   
-              var role = fetchedUser.get("role");
-              console.log('role',fetchedUser.get("role"));
-              console.log('type', typeof role);
+        user.fetch().then(function(fetchedUser){   
+          role = fetchedUser.get("role");
+          // console.log('role',fetchedUser.get("role"));
+          // console.log('type', typeof role);
 
 
-             if (role == 'student'){
-                alert("你不是老師喔");
-                window.location="logIn.html";
-             }  
+         if (role == 'teacher'){
+          var Checklist = Parse.Object.extend("User");
+          var checkedQuery = new Parse.Query(Checklist);
+          checkedQuery.equalTo("role", "student");
+          checkedQuery.find({
+              success: function(ChecklistArray){
+                for (var i = ChecklistArray.length - 1; i >= 0; i--) {
+                  var studentName = ChecklistArray[i].get('username');
+                  var html = "<tr><td>" + studentName + "</td></tr>";
+                  $("#table").append(html);
+                };
+              },
 
-            });
+              error:function(error){
+                console.log(error);
+              },
+            }
+          );
+
+
+         }  
+         else {
+            alert("你不是老師喔");
+            window.location="logIn.html";
+         }
+
+        });
       }
 
- var Checklist = new Parse.User();        
-        var CheckedQuery = new Parse.Query(Parse.User);
-        CheckedQuery.equalTo('checkin',"checked");
-        CheckedQuery.equalTo('role',"student");
-        CheckedQuery.find({
-          success: function(ChecklistArray){
-            console.log(ChecklistArray);
-            for (var i = 0 ; i < ChecklistArray.length ; i+=1){
-            var check = ChecklistArray[i] ;
-            console.log('check',check);
-            var addTable = function(username,createdAt){
-                  var html = '<tr>\
-                              <td>'+ username +'</td>\
-                              </tr>' ;
-                  $(html).appendTo('#table');
-          };
-          addTable(    
-            check.get('username'),
-            check.get('createdAt')
-            );
-        }}
-          ,error : function(error){
-            console.log(error) ;
-            alert(error.message);
-          }
-        });
+        // var Checklist = new Parse.User();        
+        // var CheckedQuery = new Parse.Query(Parse.User);
+        // CheckedQuery.equalTo('checkin',"checked");
+        // CheckedQuery.equalTo('role',"student");
+        // CheckedQuery.find({
+        //   success: function(ChecklistArray){
+        //     console.log(ChecklistArray);
+        //     for (var i = 0 ; i < ChecklistArray.length ; i+=1){
+        //     var check = ChecklistArray[i] ;
+        //     console.log('check',check);
+        //     var addTable = function(username,createdAt){
+        //           var html = '<tr>\
+        //                       <td>'+ username +'</td>\
+        //                       </tr>' ;
+        //           $(html).appendTo('#table');
+        //   };
+        //   addTable(    
+        //     check.get('username'),
+        //     check.get('createdAt')
+        //     );
+        // }}
+        //   ,error : function(error){
+        //     console.log(error) ;
+        //     alert(error.message);
+        //   }
+        // });
       
 
 
