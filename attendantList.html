@@ -51,7 +51,9 @@
 
 
            var Course = Parse.Object.extend("Course") ;
-           var allCourseQuery = new Parse.Query(Course)
+           var allCourseQuery = new Parse.Query(Course);
+
+           allCourseQuery.ascending("name");
 
                 allCourseQuery.find({
                   success: function(CourseArray) {
